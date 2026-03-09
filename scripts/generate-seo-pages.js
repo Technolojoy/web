@@ -37,17 +37,14 @@ function repeatParagraphs(base, targetExtraChars) {
 function buildSections(sections, topic) {
   return sections.map((section) => {
     const paragraphs = section.paragraphs.map((text, index) => {
-      const extra =
-        index % 2 === 0
-          ? ` ${topic} works best when guidance is clear, timelines are visible, and expectations are consistent.`
-          : "";
+      const extra = index % 2 === 0 ? ` ${topic} programs are strongest when they are easy to follow and transparent.` : "";
       return `${text}${extra}`;
     });
     return { ...section, paragraphs };
   });
 }
 
-function renderPage({ slug, title, description, h1, sections, faq, cta }) {
+function renderPage({ slug, title, description, h1, sections, faq, cta, articles = [] }) {
   const faqJson = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -73,16 +70,41 @@ function renderPage({ slug, title, description, h1, sections, faq, cta }) {
     )
     .join("\n");
 
+  const articlesMarkup = articles.length
+    ? `
+        <section aria-labelledby="articles" className="grid gap-4">
+          <h2 id="articles" className="text-2xl font-semibold text-slate-900">Long-form Guidance Series</h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            ${articles
+              .map(
+                (article) => `
+              <article className="rounded-2xl border border-white/70 bg-white/80 p-6 shadow-glow">
+                <h3 className="text-xl font-semibold text-slate-900">${article.title}</h3>
+                <p className="mt-2 text-slate-700">${article.summary}</p>
+                <p className="mt-3 text-slate-600">${article.details}</p>
+                <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-600">
+                  ${article.points.map((point) => `<li>${point}</li>`).join("\n                  ")}
+                </ul>
+                <Link href="/blog" className="mt-4 inline-flex rounded-full border border-slate-300 px-4 py-2 text-sm text-slate-700 hover:bg-white">
+                  Follow the article series
+                </Link>
+              </article>`
+              )
+              .join("\n            ")}
+          </div>
+        </section>`
+    : "";
+
   const faqMarkup = `
-        <section aria-labelledby="faq" className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-glow">
-          <h2 id="faq" className="text-2xl font-semibold text-slate-900">Frequently Asked Questions</h2>
-          <dl className="mt-4 grid gap-4 text-slate-700">
+        <section aria-labelledby="faq">
+          <h2 id="faq">Frequently Asked Questions</h2>
+          <dl>
             ${faq
               .map(
                 (item) => `
-              <div className="rounded-2xl border border-white/60 bg-white/70 p-4">
-                <dt className="font-semibold text-slate-900">${item.q}</dt>
-                <dd className="mt-2 text-slate-700">${item.a}</dd>
+              <div>
+                <dt>${item.q}</dt>
+                <dd>${item.a}</dd>
               </div>`
               )
               .join("\n")}
@@ -90,10 +112,10 @@ function renderPage({ slug, title, description, h1, sections, faq, cta }) {
         </section>`;
 
   const linksMarkup = `
-        <section aria-labelledby="internal-links" className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-glow">
-          <h2 id="internal-links" className="text-2xl font-semibold text-slate-900">Explore Related Pages</h2>
-          <p className="mt-3 text-slate-700">Continue to other TechJoy resources:</p>
-          <ul className="mt-4 grid gap-2">
+        <section aria-labelledby="internal-links">
+          <h2 id="internal-links">Explore Related Pages</h2>
+          <p>Continue to other TechJoy resources:</p>
+          <ul>
             ${internalLinks
               .map((link) => `<li><Link href="${link.href}">${link.label}</Link></li>`)
               .join("\n            ")}
@@ -101,14 +123,14 @@ function renderPage({ slug, title, description, h1, sections, faq, cta }) {
         </section>`;
 
   const ctaMarkup = `
-        <section aria-labelledby="cta" className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-glow">
-          <h2 id="cta" className="text-2xl font-semibold text-slate-900">${cta.heading}</h2>
-          <p className="mt-3 text-slate-700">${cta.copy}</p>
-          <div className="mt-4 flex flex-wrap gap-3">
+        <section aria-labelledby="cta">
+          <h2 id="cta">${cta.heading}</h2>
+          <p>${cta.copy}</p>
+          <div className="not-prose flex flex-wrap gap-3">
             ${cta.links
               .map(
                 (link) =>
-                  `<Link href="${link.href}" className="rounded-full border border-slate-300 px-4 py-2 text-sm text-slate-700 hover:bg-white">${link.label}</Link>`
+                  `<Link href="${link.href}" className="rounded-full border border-slate-300 px-4 py-2">${link.label}</Link>`
               )
               .join("\n            ")}
           </div>
@@ -134,6 +156,7 @@ export default function Page() {
         <p className="mt-4 max-w-3xl text-lg text-slate-700">${description}</p>
       </header>
       ${sectionsMarkup}
+      ${articlesMarkup}
       ${faqMarkup}
       ${linksMarkup}
       ${ctaMarkup}
@@ -157,11 +180,9 @@ function ensureContentLength(pageCode, topic) {
   );
 
   const extension = `
-        <section aria-labelledby="deep-dive" className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-glow">
-          <h2 id="deep-dive" className="text-2xl font-semibold text-slate-900">Deep Dive: Practical Guidance</h2>
-          <div className="mt-4 grid gap-4 text-base leading-relaxed text-slate-700">
-            ${extraParagraphs.map((p) => `<p>${p}</p>`).join("\n            ")}
-          </div>
+        <section aria-labelledby="deep-dive">
+          <h2 id="deep-dive">Deep Dive: Practical Guidance</h2>
+          ${extraParagraphs.map((p) => `<p>${p}</p>`).join("\n          ")}
         </section>`;
 
   code = code.replace("</section>\n      <script", `</section>\n${extension}\n      <script`);
@@ -241,6 +262,41 @@ const pages = [
           ]
         }
       ],
+    articles: [
+      {
+        title: "Aligning Logistics with Circular Electronics Goals",
+        summary: "Blueprint for coordinating pickups, quality checks, and processing so every device journey supports reuse or donation.",
+        details:
+          "TechJoy treats logistics as a foundational pillar. Routable pickups, real-time tracking, and carrier partnerships keep shipping costs down while preserving the condition of inbound devices. When every drop-off label is tied back to service levels, operators scale circular flows without losing visibility.",
+        points: [
+          "Define pick-up and label workflows that mirror real estate density and business cycles.",
+          "Document device condition upfront so technicians know which pathway—reuse, refurbishment, or recycling—comes next.",
+          "Use logistics data to forecast inbound volumes, helping recycling partners plan labor and capacity."
+        ]
+      },
+      {
+        title: "Transparent Valuation Engines for Device Programs",
+        summary: "Explain how condition, demand, and ESG opportunities combine to deliver honest bids.",
+        details:
+          "Valuation engines publish the levers that affect an offer. Condition, carrier demand, and donation readiness all influence cash, points, or donation-credit choices. When customers see the same rubric the team uses for pricing, they trust the process and are more likely to complete the lane they prefer.",
+        points: [
+          "Maintain a live pricing matrix that considers condition, age, and brand premium.",
+          "Tie payouts to both resale value and impact outcomes.",
+          "Share content that demystifies why some devices receive donation offers rather than cash."
+        ]
+      },
+      {
+        title: "Incentive Systems That Grow Participation",
+        summary: "Design rewards, referral programs, and donation matches so every interaction feels meaningful.",
+        details:
+          "Incentives must balance speed, security, and sustainability. Warm leads respond to instant quotes, while repeat donors care more about impact tracking. TechJoy bridges these needs by offering tiers of TechJoy points and donation credits, highlighting leaderboard recognition for high-volume contributors.",
+        points: [
+          "Launch tiered reward lists that unlock faster shipping or bonus credits.",
+          "Promote donation matching for every high-impact contribution.",
+          "Surface impact metrics in real-time so customers see their circular progress."
+        ]
+      }
+    ],
     faq: [
       { q: "What devices can I send to TechJoy?", a: "TechJoy accepts smartphones, tablets, laptops, gaming consoles, and accessories across common brands." },
       { q: "How long does the process take?", a: "Most devices are processed within a few business days once received, with status updates along the way." },
@@ -315,6 +371,41 @@ const pages = [
           ]
         }
       ],
+    articles: [
+      {
+        title: "Material Value Recovery Playbook",
+        summary: "Guide to extracting copper, gold, and rare earth elements before devices are discarded.",
+        details:
+          "Recyclers maximize ROI when they combine de-manufacturing with modern sorting. TechJoy partners label every device so teardown technicians know which components are valuable and which need safe disposal. Transparent reporting ensures recovered materials are tracked back to ESG claims.",
+        points: [
+          "Segment devices into reuse, component harvest, and hazardous material pathways.",
+          "Use automated sorting plus human inspection to protect valuable PCBs.",
+          "Document recovered materials so corporate partners see the climate and resource savings."
+        ]
+      },
+      {
+        title: "Enterprise Recycling Networks",
+        summary: "Playbook for scaling collection with managed IT asset disposition partners.",
+        details:
+          "Businesses need consistent pickups to meet compliance and sustainability goals. TechJoy configures regional pallets and logistic partners that handle bulk electronics, while dashboards keep procurement and sustainability teams aligned. Partnerships are built on SLAs and secure chain-of-custody documentation.",
+        points: [
+          "Set up SLA-driven pickup cadences aligned with data center refresh cycles.",
+          "Provide secure manifests that detail every asset by serial number.",
+          "Integrate recycling reporting into ESG dashboards for internal stakeholders."
+        ]
+      },
+      {
+        title: "Community Collection Models",
+        summary: "How to design drop-off events and municipal partnerships that raise awareness.",
+        details:
+          "Community events bring convenience and storytelling together. TechJoy coordinates with libraries, schools, and events to offer on-site data wiping and instant valuation seminars. Engaging ambassadors and local nonprofits amplifies outreach and keeps electronics out of curbside trash.",
+        points: [
+          "Pair collection drives with live demos showing how data wiping works.",
+          "Train volunteers to tag devices for immediate sorting and tracking.",
+          "Share localized impact stories that celebrate the pounds of materials diverted."
+        ]
+      }
+    ],
     faq: [
       { q: "What devices are accepted for recycling?", a: "TechJoy accepts phones, tablets, laptops, desktops, gaming consoles, and accessories." },
       { q: "Can I recycle broken devices?", a: "Yes. Devices that cannot be reused are still processed for responsible material recovery." },
@@ -388,6 +479,41 @@ const pages = [
           ]
         }
       ],
+    articles: [
+      {
+        title: "Smartphone Lifecycle Stories",
+        summary: "Narratives that illustrate how a phone moves from deployment to resale or donation.",
+        details:
+          "TechJoy tracks every stage of a smartphone's life—data wipe, inspection, refurbishment, and redistribution. Sharing these stories educates buyers and sellers about the environmental return on each device. Marketing teams can turn these stories into trust-building pieces for prospects considering both cash and donation lanes.",
+        points: [
+          "Highlight the refurbishment steps that make a device eligible for secondary markets.",
+          "Explain how data wiping is certified so customers understand security.",
+          "Celebrate donation partners that receive ready-to-use smartphones."
+        ]
+      },
+      {
+        title: "Designing Secure Data Workflows",
+        summary: "Explain the protocols that keep personal information safe during buyback.",
+        details:
+          "Phones contain the richest data sets, so TechJoy approaches buyback with multi-layered security. Devices are wiped with certified tooling and logged in tamper-resistant systems. These workflows are shared with customers to reinforce confidence while reducing friction during drop-offs.",
+        points: [
+          "Use certified wiping tools and maintain logged audit trails.",
+          "Train handlers on chain-of-custody language for enterprise customers.",
+          "Communicate the steps in onboarding content so individuals feel secure."
+        ]
+      },
+      {
+        title: "Matching Offers to Circular Goals",
+        summary: "Strategy for pairing payouts, reward points, or donation credits with sustainability narratives.",
+        details:
+          "Offers should reflect both market value and circular impact. TechJoy scores each phone on resale potential and environmental value, guiding customers toward cash, points, or donation paths. Transparent messaging helps people choose the option that aligns with their goals.",
+        points: [
+          "Score devices using both resale forecast and material recovery value.",
+          "Offer donation credits with impact storytelling to boost reuse.",
+          "Run experiments showing how tiered offers affect conversion."
+        ]
+      }
+    ],
     faq: [
       { q: "How do I get a phone estimate?", a: "Choose your phone model and condition to receive an instant quote." },
       { q: "Which brands are supported?", a: "TechJoy supports Apple, Samsung, Google, OnePlus, and Xiaomi phones." },
@@ -461,6 +587,41 @@ const pages = [
           ]
         }
       ],
+    articles: [
+      {
+        title: "Digital Equity Roadmap",
+        summary: "Series that connects donations to closing the access gap for students and nonprofits.",
+        details:
+          "TechJoy partners map donated devices to digital equity outcomes. Each smartphone or laptop is tagged with its intended recipient program and impact objective. Publishing this roadmap shows donors exactly how their devices are reused to power education and job training.",
+        points: [
+          "Coordinate with schools to match devices to student rosters.",
+          "Highlight remote learning success stories in regional campaigns.",
+          "Track donation credits so supporters see the real-world benefit."
+        ]
+      },
+      {
+        title: "Donation Compliance & Reporting",
+        summary: "Explain the governance around tracking assets before they leave the facility.",
+        details:
+          "Donation compliance leans on transparent auditing and chain-of-custody. TechJoy logs every donated device with serial, condition, and recipient to satisfy both donors and auditors. The reporting makes it easy for corporate CSR teams to share their contributions externally.",
+        points: [
+          "Document serial numbers and cleaning steps for every donated device.",
+          "Provide compliance-ready reports that list recipients and program focus.",
+          "Integrate donation activities into sustainability dashboards."
+        ]
+      },
+      {
+        title: "Partnerships with Education & Nonprofits",
+        summary: "Blueprint for onboarding organizations that resell, refurbish, or distribute donated gear.",
+        details:
+          "TechJoy scouts partners with technical capabilities and mission alignment. Each nonprofit receives training on secure data handling and basic refurbishment to maximize device uptime. Partnership content explains how contributions sustain programs and increase digital inclusion.",
+        points: [
+          "Vet partners for repair, data security, and distribution capacity.",
+          "Share impact storytelling that highlights students or clinics receiving devices.",
+          "Create co-branded assets so partners promote the donation flow."
+        ]
+      }
+    ],
     faq: [
       { q: "What devices can be donated?", a: "Phones, tablets, laptops, and accessories are commonly accepted." },
       { q: "Is my data removed?", a: "Yes. All devices are wiped using certified data destruction methods." },
@@ -534,6 +695,41 @@ const pages = [
           ]
         }
       ],
+    articles: [
+      {
+        title: "Living Impact Dashboard",
+        summary: "How to build an impact dashboard that updates in real time for customers and partners.",
+        details:
+          "Impact reporting needs fresh data that ties devices recycled, refurbished, and donated to avoided emissions. TechJoy uses automated logging to refresh dashboards every time a device is processed, letting stakeholders see their contributions instantly. The narrative shows digital proof of circular progress.",
+        points: [
+          "Automate data capture at each processing stage.",
+          "Contextualize metrics with comparisons to past months.",
+          "Share dashboard access with corporate and consumer partners."
+        ]
+      },
+      {
+        title: "Carbon & Materials Accounting",
+        summary: "Article on converting refurbished pounds into emissions avoided and resource recovery metrics.",
+        details:
+          "Calculating carbon and materials impact helps quantify circular performance. TechJoy translates materials recoveries into carbon equivalencies so partners can report against sustainability targets. Detailed accounting also justifies the economics of refurbishment over landfill.",
+        points: [
+          "Convert aluminum, copper, and rare earth recovery into emissions avoided.",
+          "Link each device pathway to an emissions factor table.",
+          "Bundle reports for ESG disclosure."
+        ]
+      },
+      {
+        title: "Community Impact Spotlights",
+        summary: "Profiles communities that gained access to technology through TechJoy programs.",
+        details:
+          "Storytelling makes impact tangible. TechJoy spotlights schools, clinics, and nonprofits that received devices, including quotes from recipients. Highlighting these stories fuels repeat participation and connects donors to real-world outcomes.",
+        points: [
+          "Feature case studies in both text and short video.",
+          "Quote recipients about what the device enabled them to accomplish.",
+          "Include data points showing hours saved or services improved."
+        ]
+      }
+    ],
     faq: [
       { q: "What impact does TechJoy measure?", a: "TechJoy tracks devices recycled, refurbished, donated, and emissions avoided." },
       { q: "How is impact reported?", a: "Impact reporting is shared through summaries and partner reporting tools." },
@@ -607,6 +803,41 @@ const pages = [
           ]
         }
       ],
+    articles: [
+      {
+        title: "Support Center Scripts That Build Confidence",
+        summary: "Playbook for messaging and automation in support conversations.",
+        details:
+          "TechJoy trains human agents and bots to answer shipping, data, and payout questions. Scripts prioritize clarity, emphasize security, and always close with a next step. Publishing the playbook gives users a preview of the supportive experience they can expect.",
+        points: [
+          "Use consistent messaging for shipping, tracking, and status updates.",
+          "Reinforce data security posture during every support touch.",
+          "Embed next-step CTAs so every response leads to momentum."
+        ]
+      },
+      {
+        title: "Enterprise Partnership Playbooks",
+        summary: "Guide for onboarding corporate recycling, buyback, and donation programs.",
+        details:
+          "Enterprises require documented intake flows, security checks, and reporting. TechJoy packages partnership playbooks with checklists for devices, volume forecasting, and performance check-ins. These playbooks reduce friction and keep procurement teams aligned.",
+        points: [
+          "Document intake forms, volume expectations, and SLAs.",
+          "Assign a dedicated partnership manager for ongoing alignment.",
+          "Share performance summaries monthly to highlight wins."
+        ]
+      },
+      {
+        title: "Privacy & Data Security Dialogues",
+        summary: "Outline the conversations around certified data wiping and compliance.",
+        details:
+          "Securing data is at the heart of every recycling or buyback program. TechJoy outlines how data is wiped, audited, and certified, giving customers a script to ask deeper questions. A transparent dialogue builds trust with both individuals and internal security teams.",
+        points: [
+          "Explain certified wiping tools and audit trails.",
+          "Offer security teams the documentation they need to approve programs.",
+          "Position data security as a differentiator in communications."
+        ]
+      }
+    ],
     faq: [
       { q: "How do I contact support?", a: "Use the contact form or email to reach the TechJoy support team." },
       { q: "Do you offer corporate programs?", a: "Yes. Corporate recycling and IT asset disposal programs are available." },
