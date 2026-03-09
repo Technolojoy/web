@@ -37,7 +37,10 @@ function repeatParagraphs(base, targetExtraChars) {
 function buildSections(sections, topic) {
   return sections.map((section) => {
     const paragraphs = section.paragraphs.map((text, index) => {
-      const extra = index % 2 === 0 ? ` ${topic} programs are strongest when they are easy to follow and transparent.` : "";
+      const extra =
+        index % 2 === 0
+          ? ` ${topic} works best when guidance is clear, timelines are visible, and expectations are consistent.`
+          : "";
       return `${text}${extra}`;
     });
     return { ...section, paragraphs };
@@ -61,23 +64,25 @@ function renderPage({ slug, title, description, h1, sections, faq, cta }) {
   const sectionsMarkup = sections
     .map(
       (section) => `
-        <section aria-labelledby="${section.id}">
-          <h2 id="${section.id}">${section.heading}</h2>
-          ${section.paragraphs.map((p) => `<p>${p}</p>`).join("\n          ")}
+        <section aria-labelledby="${section.id}" className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-glow">
+          <h2 id="${section.id}" className="text-2xl font-semibold text-slate-900">${section.heading}</h2>
+          <div className="mt-4 grid gap-4 text-base leading-relaxed text-slate-700">
+            ${section.paragraphs.map((p) => `<p>${p}</p>`).join("\n            ")}
+          </div>
         </section>`
     )
     .join("\n");
 
   const faqMarkup = `
-        <section aria-labelledby="faq">
-          <h2 id="faq">Frequently Asked Questions</h2>
-          <dl>
+        <section aria-labelledby="faq" className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-glow">
+          <h2 id="faq" className="text-2xl font-semibold text-slate-900">Frequently Asked Questions</h2>
+          <dl className="mt-4 grid gap-4 text-slate-700">
             ${faq
               .map(
                 (item) => `
-              <div>
-                <dt>${item.q}</dt>
-                <dd>${item.a}</dd>
+              <div className="rounded-2xl border border-white/60 bg-white/70 p-4">
+                <dt className="font-semibold text-slate-900">${item.q}</dt>
+                <dd className="mt-2 text-slate-700">${item.a}</dd>
               </div>`
               )
               .join("\n")}
@@ -85,10 +90,10 @@ function renderPage({ slug, title, description, h1, sections, faq, cta }) {
         </section>`;
 
   const linksMarkup = `
-        <section aria-labelledby="internal-links">
-          <h2 id="internal-links">Explore Related Pages</h2>
-          <p>Continue to other TechJoy resources:</p>
-          <ul>
+        <section aria-labelledby="internal-links" className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-glow">
+          <h2 id="internal-links" className="text-2xl font-semibold text-slate-900">Explore Related Pages</h2>
+          <p className="mt-3 text-slate-700">Continue to other TechJoy resources:</p>
+          <ul className="mt-4 grid gap-2">
             ${internalLinks
               .map((link) => `<li><Link href="${link.href}">${link.label}</Link></li>`)
               .join("\n            ")}
@@ -96,14 +101,14 @@ function renderPage({ slug, title, description, h1, sections, faq, cta }) {
         </section>`;
 
   const ctaMarkup = `
-        <section aria-labelledby="cta">
-          <h2 id="cta">${cta.heading}</h2>
-          <p>${cta.copy}</p>
-          <div className="not-prose flex flex-wrap gap-3">
+        <section aria-labelledby="cta" className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-glow">
+          <h2 id="cta" className="text-2xl font-semibold text-slate-900">${cta.heading}</h2>
+          <p className="mt-3 text-slate-700">${cta.copy}</p>
+          <div className="mt-4 flex flex-wrap gap-3">
             ${cta.links
               .map(
                 (link) =>
-                  `<Link href="${link.href}" className="rounded-full border border-slate-300 px-4 py-2">${link.label}</Link>`
+                  `<Link href="${link.href}" className="rounded-full border border-slate-300 px-4 py-2 text-sm text-slate-700 hover:bg-white">${link.label}</Link>`
               )
               .join("\n            ")}
           </div>
@@ -123,8 +128,11 @@ export default function Page() {
   const faqJsonLd = ${JSON.stringify(faqJson, null, 2)};
 
   return (
-    <main className="prose mx-auto max-w-4xl p-6">
-      <h1>${h1}</h1>
+    <main className="section grid gap-6">
+      <header className="rounded-3xl border border-white/70 bg-white/85 p-8 shadow-glow">
+        <h1 className="text-4xl font-semibold tracking-tight text-slate-900 md:text-5xl">${h1}</h1>
+        <p className="mt-4 max-w-3xl text-lg text-slate-700">${description}</p>
+      </header>
       ${sectionsMarkup}
       ${faqMarkup}
       ${linksMarkup}
@@ -149,9 +157,11 @@ function ensureContentLength(pageCode, topic) {
   );
 
   const extension = `
-        <section aria-labelledby="deep-dive">
-          <h2 id="deep-dive">Deep Dive: Practical Guidance</h2>
-          ${extraParagraphs.map((p) => `<p>${p}</p>`).join("\n          ")}
+        <section aria-labelledby="deep-dive" className="rounded-3xl border border-white/70 bg-white/80 p-6 shadow-glow">
+          <h2 id="deep-dive" className="text-2xl font-semibold text-slate-900">Deep Dive: Practical Guidance</h2>
+          <div className="mt-4 grid gap-4 text-base leading-relaxed text-slate-700">
+            ${extraParagraphs.map((p) => `<p>${p}</p>`).join("\n            ")}
+          </div>
         </section>`;
 
   code = code.replace("</section>\n      <script", `</section>\n${extension}\n      <script`);
