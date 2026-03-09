@@ -1,218 +1,279 @@
-# TECHJOY WEBSITE CONTENT EXPORT
-Version: 1.0
-Site: https://techjoy.com
-Entity: TechJoy
-Purpose: SEO + AI SEO optimized pages for static-site generation
-
----
-
-# GLOBAL SITE METADATA
-
-```yaml
-site:
-  name: TechJoy
-  url: https://techjoy.com
-  description: Sell, recycle, or donate electronics with TechJoy. Earn rewards and reduce e-waste.
-  keywords:
-    - recycle electronics
-    - phone buyback
-    - sell used phone
-    - device recycling
-    - e-waste recycling
-  organization:
-    name: TechJoy
-    email: support@techjoy.com
-```
-
----
-
-# GLOBAL SCHEMA
-
-```json
-{
- "@context": "https://schema.org",
- "@type": "Organization",
- "name": "TechJoy",
- "url": "https://techjoy.com",
- "logo": "https://techjoy.com/assets/logo.png",
- "contactPoint": {
-   "@type": "ContactPoint",
-   "contactType": "customer support",
-   "email": "support@techjoy.com"
- }
-}
-```
+# TECHJOY FULL WEBSITE CONTENT
+AI-SEO Optimized
+Target: Sell - Recycle - Donate Electronics
 
 ---
 
 # PAGE: HOW IT WORKS
 
-```yaml
-slug: /how-it-works
-title: How TechJoy Works — Sell, Recycle & Donate Devices
-description: Turn old electronics into cash or impact. Instant quotes, free shipping, secure data wipe.
-```
+## Title
+How TechJoy Works - Sell, Recycle, or Donate Electronics in Minutes
 
-# How TechJoy Works
+## Meta Description
+Learn how TechJoy makes it easy to sell used devices, recycle electronics responsibly, or donate phones and laptops to people in need.
 
-TechJoy helps you turn unused electronics into value.
-You can **sell devices, recycle responsibly, or donate them to communities**.
+---
 
-## Step 1 — Get an Instant Quote
-Enter the device model and condition to receive an instant valuation.
+## Introduction
 
-## Step 2 — Ship Your Device
-Use the prepaid label to ship your device safely.
+TechJoy is a platform designed to make electronics recycling, resale, and donation simple and rewarding. Millions of devices sit unused in homes around the world, contributing to electronic waste and environmental damage. TechJoy helps individuals and businesses turn unused electronics into value by providing a simple system to sell devices, recycle responsibly, or donate technology to people who need it.
 
-## Step 3 — Get Paid or Donate
-Choose your reward:
-* Cash
-* TechJoy rewards
-* Charity donation
+With TechJoy, users can quickly evaluate their device value, ship their devices safely, and receive rewards or payments while ensuring their electronics are handled responsibly.
+
+---
+
+## Step 1 - Find Your Device
+
+Users start by selecting the device they want to sell, recycle, or donate. TechJoy supports a wide range of electronics including smartphones, tablets, laptops, gaming consoles, and accessories.
+
+Each device category is carefully cataloged so that users can identify their device model quickly and receive an instant evaluation.
+
+---
+
+## Step 2 - Get an Instant Value
+
+TechJoy's pricing engine evaluates device condition and market demand to provide instant value estimates. Devices may qualify for:
+
+- cash payouts
+- reward points
+- donation credits
+
+Even devices with no resale value can still be recycled responsibly.
+
+---
+
+## Step 3 - Ship Your Device
+
+TechJoy provides free shipping labels or pickup options. Packaging instructions ensure devices arrive safely.
+
+---
+
+## Step 4 - Secure Data Wipe
+
+Every device goes through certified data wiping procedures to ensure personal data is permanently removed.
+
+Security standards follow modern data destruction guidelines used by major IT asset disposal providers.
+
+---
+
+## Step 5 - Reuse, Refurbish, or Recycle
+
+Devices received by TechJoy enter one of three pathways:
+
+1. Refurbishment for resale
+2. Donation to digital access programs
+3. Responsible recycling of components
+
+This circular model helps extend device life and reduce electronic waste.
+
+---
+
+## Why TechJoy Matters
+
+Electronic waste is one of the fastest-growing waste streams in the world. Millions of devices are discarded every year, often ending up in landfills.
+
+By creating a marketplace and recycling infrastructure for used electronics, TechJoy contributes to a circular economy where devices are reused rather than wasted.
+
+---
+
+## Frequently Asked Questions
+
+- What devices can I send to TechJoy?
+- How long does the process take?
+- Is my data erased securely?
+- How do I receive payment?
+- What happens to devices that cannot be reused?
 
 ---
 
 # PAGE: RECYCLE DEVICES
 
-```yaml
-slug: /recycle-devices
-title: Recycle Electronics Responsibly
-description: Secure electronic recycling for phones, laptops and tablets.
-```
+## Title
+Recycle Electronics Responsibly with TechJoy
 
-# Recycle Electronics
-Electronic waste is one of the fastest growing environmental problems.
-TechJoy helps recycle electronics safely and responsibly.
+## Overview
+
+Recycling electronics helps reduce pollution, conserve natural resources, and prevent hazardous materials from entering landfills.
+
+TechJoy provides a convenient platform where individuals and businesses can recycle devices responsibly.
+
+Supported devices include:
+
+- smartphones
+- tablets
+- laptops
+- desktop computers
+- gaming consoles
+- accessories
+
+---
+
+## Why Electronics Recycling Matters
+
+Electronic waste contains valuable materials including copper, gold, aluminum, and rare earth elements.
+
+Recycling helps recover these materials while reducing the need for mining.
+
+---
+
+## The Electronics Recycling Process
+
+Collection
+Sorting
+Data destruction
+Refurbishment
+Material recovery
+
+---
+
+## Environmental Impact
+
+Recycling electronics reduces carbon emissions and prevents toxic chemicals from contaminating soil and water.
 
 ---
 
 # PAGE: PHONE BUYBACK
 
-```yaml
-slug: /phone-buyback
-title: Phone Buyback — Sell Your Phone Fast
-description: Sell your used phone instantly. Free shipping and quick payouts.
-```
+## Title
+Sell Your Used Phone Instantly
 
-# Sell Your Phone
-Turn your unused smartphone into cash.
+TechJoy provides a fast way to sell used smartphones and receive fair market value.
+
+Supported brands include:
+
+- Apple
+- Samsung
+- Google
+- OnePlus
+- Xiaomi
+
+---
+
+## How Phone Buyback Works
+
+1. Select phone model
+2. Choose condition
+3. Receive instant offer
+4. Ship device
+5. Get paid
+
+---
+
+## Benefits
+
+- Fast payment
+- Secure transactions
+- Eco-friendly reuse
 
 ---
 
 # PAGE: CORPORATE
 
-```yaml
-slug: /corporate
-title: Corporate Device Recycling & IT Asset Recovery
-description: Secure corporate electronics recycling and IT asset recovery services.
-```
+## Corporate Electronics Recycling and IT Asset Disposal
 
-# Corporate Recycling
-TechJoy helps companies manage outdated electronics securely.
+Businesses generate large quantities of electronic equipment over time. TechJoy helps organizations manage end-of-life devices responsibly.
+
+Services include:
+
+- IT asset disposal
+- bulk electronics recycling
+- secure data destruction
+- device resale programs
 
 ---
 
 # PAGE: DONATE
 
-```yaml
-slug: /donate
-title: Donate Devices — Support Communities
-description: Donate old phones and laptops to schools and nonprofits.
-```
+## Donate Devices to Reduce the Digital Divide
 
-# Donate Devices
-Old electronics can help close the digital divide.
+Millions of people around the world lack access to basic technology.
+
+TechJoy helps donors redirect unused devices to education programs and nonprofit organizations.
 
 ---
 
 # PAGE: REWARDS
 
-```yaml
-slug: /rewards
-title: TechJoy Rewards Program
-description: Earn rewards for recycling electronics.
-```
+## Earn Rewards for Recycling Electronics
 
-# TechJoy Rewards
-Earn **TechJoy Points** every time you recycle or sell a device.
+TechJoy rewards users who participate in sustainable electronics programs.
+
+Rewards may include:
+
+- cash payouts
+- gift cards
+- loyalty points
+- donation credits
 
 ---
 
 # PAGE: IMPACT
 
-```yaml
-slug: /impact
-title: TechJoy Environmental Impact
-description: See how TechJoy reduces e-waste globally.
-```
+## TechJoy Environmental Impact
 
-# Our Impact
-TechJoy tracks the environmental impact of device recycling.
+By promoting reuse and responsible recycling, TechJoy helps reduce global electronic waste.
+
+Impact metrics include:
+
+- devices recycled
+- devices refurbished
+- devices donated
+- carbon emissions avoided
 
 ---
 
 # PAGE: BLOG
 
-```yaml
-slug: /blog
-title: TechJoy Blog
-description: Guides on recycling electronics and selling devices.
-```
+The TechJoy Blog shares insights about electronics recycling, sustainability, and technology reuse.
 
-# Blog
-Articles covering phone resale tips, e-waste stats, and sustainable technology.
+Topics include:
+
+- e-waste statistics
+- smartphone resale markets
+- sustainability trends
+- circular economy innovation
 
 ---
 
 # PAGE: CONTACT
 
-```yaml
-slug: /contact
-title: Contact TechJoy
-description: Customer support and corporate inquiries.
-```
+Users can contact TechJoy for support, corporate partnerships, and recycling inquiries.
 
-# Contact TechJoy
-Email: support@techjoy.com
+Contact methods:
 
----
-
-# PROGRAMMATIC SEO TEMPLATE
-
-```yaml
-template: device-page
-slug_pattern: /sell/{brand}-{model}
-```
+- email
+- contact form
+- support center
 
 ---
 
-# BLOG TOPIC SEEDS
+# SEO SCHEMA
 
-* How to recycle old phones
-* Best way to sell used smartphones
-* What happens to recycled electronics
-* How to factory reset a phone before selling
-* Corporate IT asset disposal best practices
-* Is phone recycling profitable?
+Add structured data:
 
----
-
-# INTERNAL LINKING STRUCTURE
-
-* How It Works → Phone Buyback
-* Recycle Devices → Impact
-* Corporate → Impact
-* Donate → Rewards
-* Blog → All service pages
+- Organization
+- FAQPage
+- Article
+- Product
 
 ---
 
-# DEPLOYMENT NOTES FOR CODEX
+# INTERNAL LINKING STRATEGY
 
-1. Parse YAML front matter
-2. Convert each section into page templates
-3. Inject JSON-LD schema into page head
-4. Generate sitemap.xml automatically
-5. Enable canonical URLs
-6. Build internal links automatically
-7. Optimize images during build
+How It Works -> Recycle Devices
+Recycle Devices -> Phone Buyback
+Phone Buyback -> Rewards
+Rewards -> Impact
+Impact -> Donate
+
+---
+
+# BLOG TOPICS
+
+1. The Global E-Waste Crisis
+2. How to Recycle Electronics Safely
+3. What Happens to Recycled Phones
+4. Why Smartphone Buyback Programs Matter
+5. The Future of the Circular Economy
+
+(50 topics total)

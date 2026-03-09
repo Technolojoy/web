@@ -1,29 +1,24 @@
 import { PageShell } from "@/components/PageShell";
 
 const services = [
+  "IT asset disposal",
   "Bulk electronics recycling",
   "Secure data destruction",
-  "Corporate sustainability programs",
-  "ESG impact reporting"
+  "Device resale programs"
 ];
 
 export default function CorporatePage() {
   return (
     <PageShell
-      title="Corporate Partnerships"
-      subtitle="B2B recycling, data destruction, ESG reporting, and sustainability programs."
+      title="Corporate Electronics Recycling and IT Asset Disposal"
+      subtitle="Businesses generate large quantities of electronic equipment over time. TechJoy helps organizations manage end-of-life devices responsibly."
     >
-      <ul className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2">
         {services.map((item) => (
-          <li key={item} className="glass rounded-2xl p-5">
+          <div key={item} className="glass rounded-2xl p-6">
             {item}
-          </li>
+          </div>
         ))}
-      </ul>
-
-      <div className="mt-6 flex flex-wrap gap-3">
-        <button className="rounded-full bg-slate-900 px-5 py-3 text-white">Request pickup</button>
-        <button className="rounded-full border border-slate-300 px-5 py-3">Schedule consultation</button>
       </div>
     </PageShell>
   );

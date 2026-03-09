@@ -27,6 +27,15 @@ const processSteps = [
 export default function Home() {
   return (
     <main className="pb-20">
+      <nav style={{ display: "flex", gap: "20px", marginBottom: "40px" }}>
+        <Link href="/">Home</Link>
+        <Link href="/how-it-works">How It Works</Link>
+        <Link href="/recycle-devices">Recycle Devices</Link>
+        <Link href="/phone-buyback">Phone Buyback</Link>
+        <Link href="/donate">Donate</Link>
+        <Link href="/impact">Impact</Link>
+        <Link href="/contact">Contact</Link>
+      </nav>
       <section className="section pb-12 pt-10 md:pt-16">
         <div className="relative isolate overflow-hidden rounded-[32px] border border-white/70 bg-slate-950 shadow-glow">
           <SplineHero />
