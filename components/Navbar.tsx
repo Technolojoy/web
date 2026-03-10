@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { navLinks } from "@/lib/constants";
 
@@ -10,8 +11,18 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/60 bg-white/85 backdrop-blur-lg">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-xl font-semibold tracking-tight text-slate-900">
-          TECHJOY
+        <Link href="/" className="flex items-center gap-3">
+          <Image
+            src="/images/techjoylogo.svg"
+            alt="TECHJOY Logo"
+            width={40}
+            height={40}
+            className="h-8 w-auto"
+            priority
+          />
+          <span className="text-xl font-bold tracking-tight text-slate-950">
+            TECHJOY
+          </span>
         </Link>
 
         <button

@@ -27,41 +27,46 @@ const processSteps = [
 export default function Home() {
   return (
     <main className="pb-20">
-      <section className="section pb-12 pt-10 md:pt-16">
-        <div className="relative isolate overflow-hidden rounded-[32px] border border-white/70 bg-slate-950 shadow-glow">
+      <section className="pb-12 pt-0 md:pt-0">
+        <div className="relative isolate min-h-screen overflow-hidden bg-slate-100 shadow-glow">
           <SplineHero />
+          {/* Lightened Background Overlay */}
           <div
             aria-hidden
-            className="absolute inset-0 bg-[linear-gradient(112deg,rgba(4,12,22,0.96)_12%,rgba(4,12,22,0.9)_36%,rgba(4,12,22,0.62)_58%,rgba(4,12,22,0.16)_100%)]"
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(112deg,rgba(255,255,255,0.85)_12%,rgba(255,255,255,0.7)_36%,rgba(255,255,255,0.4)_58%,rgba(255,255,255,0.1)_100%)]"
           />
-          <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent" />
+          {/* Bottom Fade Up */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[50px] bg-gradient-to-t from-white to-transparent"
+          />
 
-          <div className="relative flex min-h-[560px] items-center px-8 py-14 md:px-12 md:py-16 lg:min-h-[620px] lg:px-16">
-            <div className="max-w-2xl">
-              <p className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-1 text-sm uppercase tracking-[0.18em] text-techjoy-accent">
+          <div className="pointer-events-none relative flex min-h-screen items-center px-8 py-14 md:px-12 md:py-16 lg:px-16">
+            <div className="pointer-events-auto max-w-2xl">
+              <p className="inline-flex rounded-full border border-techjoy-primary/20 bg-techjoy-primary/10 px-4 py-1 text-sm uppercase tracking-[0.18em] text-techjoy-primary font-medium">
                 Circular Electronics Economy Platform
               </p>
-              <h1 className="mt-6 max-w-2xl text-5xl font-semibold tracking-tight text-white md:text-7xl">
+              <h1 className="mt-6 max-w-2xl text-5xl font-semibold tracking-tight text-slate-950 md:text-7xl">
                 Recycle Technology. Power the Future.
               </h1>
-              <p className="mt-6 max-w-xl text-lg text-slate-200">
+              <p className="mt-6 max-w-xl text-lg text-slate-700">
                 TechJoy turns idle electronics into cash, donations, and measurable climate impact with secure logistics,
                 transparent processing, and rewards built in.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/recycle-devices" className="rounded-full bg-white px-5 py-3 text-slate-950 transition hover:bg-slate-100">
+                <Link href="/recycle-devices" className="rounded-full bg-techjoy-primary px-5 py-3 text-white transition hover:bg-techjoy-primary/90 shadow-lg shadow-techjoy-primary/30">
                   Recycle Devices
                 </Link>
                 <Link
                   href="/phone-buyback"
-                  className="rounded-full border border-white/25 bg-white/10 px-5 py-3 text-white transition hover:bg-white/15"
+                  className="rounded-full border border-slate-200 bg-white px-5 py-3 text-slate-900 transition hover:bg-slate-50"
                 >
                   Sell a Phone
                 </Link>
                 <Link
                   href="/donate"
-                  className="rounded-full border border-white/25 bg-white/10 px-5 py-3 text-white transition hover:bg-white/15"
+                  className="rounded-full border border-slate-200 bg-white px-5 py-3 text-slate-900 transition hover:bg-slate-50"
                 >
                   Donate Devices
                 </Link>
@@ -69,7 +74,7 @@ export default function Home() {
 
               <div className="mt-10 grid gap-3 sm:grid-cols-3">
                 {heroHighlights.map((item) => (
-                  <div key={item} className="rounded-2xl border border-white/12 bg-white/10 px-4 py-4 text-sm text-slate-100 backdrop-blur">
+                  <div key={item} className="rounded-2xl border border-slate-200/60 bg-white/40 px-4 py-4 text-sm text-slate-800 backdrop-blur-sm">
                     {item}
                   </div>
                 ))}

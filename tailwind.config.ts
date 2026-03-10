@@ -6,16 +6,16 @@ export default {
     extend: {
       colors: {
         techjoy: {
-          primary: "#5EC6FF",
-          accent: "#B7F4FF",
-          deep: "#0A1A2B"
+          primary: "#22c55e",
+          accent: "#bbf7d0",
+          deep: "#052e16"
         }
       },
       boxShadow: {
-        glow: "0 0 80px rgba(94,198,255,0.4)"
+        glow: "0 0 80px rgba(34,197,94,0.4)"
       },
       backgroundImage: {
-        "tech-gradient": "linear-gradient(120deg, #f6fbff 0%, #ecf8ff 40%, #ffffff 100%)"
+        "tech-gradient": "linear-gradient(120deg, #f0fdf4 0%, #dcfce7 40%, #ffffff 100%)"
       }
     }
   },
